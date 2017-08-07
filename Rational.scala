@@ -8,8 +8,6 @@ class Rational(n:Int, d: Int){
   
   def this(n: Int) = this(n, 1)
   
-  override def toString = numer + "/" + denom
-  
   private def gcd(a: Int, b: Int): Int = 
     if(b == 0) a else gcd(b, a % b)
   
@@ -18,17 +16,34 @@ class Rational(n:Int, d: Int){
 	  numer * that.denom + that.numer * denom,
 	  denom * that.denom
 	 )
-  
-  def * (that : Rational): Rational = 
+	 
+  def + (i: Int): Rational = 
+    new Rational(numer + i * denom, denom)
+	 
+  def - (that: Rational): Rational = 
     new Rational(
-	  this.numer * that.numer,
-	  this.denom * that.denom
-	)
+	  numer * that.denom - that.numer * denom,
+	  denom * that.denom
+     )  
+	 
+  def - (i: Int): Rational = 
+    new Rational(numer - i * denom, denom)
+	
+  def * (that : Rational): Rational = 
+    new Rational(this.numer * that.numer, this.denom * that.denom)
+	
+  def * (i: Int): Rational = 
+    new Rational(numer*i, denom)
+	
+  def / (that: Rational): Rational = 
+    new Rational(numer * that.denom, denom * that.numer)
   
+  def / (i:Int) : Rational = 
+    new Rational(numer, denom*1)
+	
   def lessThan(that: Rational)=
     this.numer * that.denom < that.numer * this.denom
 	
-  def max(that: Rational)=
-    if (lessThan(that)) that else this
+  override def toString = numer + "/" + denom
  }
   
